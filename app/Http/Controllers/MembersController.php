@@ -89,11 +89,21 @@ class MembersController extends Controller
      */
     public function update(Request $request, Member $member): \Illuminate\Http\RedirectResponse
     {
-        $member->update($request->except(['image']));
-        if($request->hasFile('image')){
-            $member->image='/media/'.$request->file('image')->store('members','media');
-            $member->update();
-        }
+//        dd($request->all());
+        $member->name = $request->name;
+        $member->description = $request->description;
+        $member->email = $request->email;
+        $member->tel = $request->tel;
+        $member->member_type_id = $request->member_type_id;
+        $member->committee_id = $request->committee_id;
+        $member->image = $request->hasFile('image')?'/media/'.$request->file('image')->store('members','media'):$member->image;
+        $member->save();
+
+//        $member->update($request->except(['image']));
+//        if($request->hasFile('image')){
+//            $member->image='/media/'.$request->file('image')->store('members','media');
+//            $member->update();
+//        }
 
         return redirect()->route('members.index')
             ->with('status' , 'member has been updated');

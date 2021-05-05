@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-title"></div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="table">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -51,11 +51,7 @@
                                     <td>{{$member->email}}</td>
                                     <td>
                                         <a href="{{route('members.edit' , $member->id)}}" class="btn btn-info btn-sm">edit</a>
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-member').submit()" class="btn btn-danger btn-sm">delete</a>
-                                        <form id="delete-member" method="post" action="{{route('members.destroy' , $member->id)}}" style="display: none">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
+                                          <button  data-toggle="modal" data-id="{{$member->id}}" id="showModalBtn" class="btn btn-danger btn-sm" >Delete</button>
                                     </td>
                                 </tr>
                             @empty
@@ -72,9 +68,48 @@
                 </div>
             </div>
         </div>
+
+            <!-- Button trigger modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <form id="delete-member" method="post" action="" >
+                                @csrf
+                                @method('delete')
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
 @stop
+
+@section('script_js')
+    <script>
+
+        $('#table').on('click','#showModalBtn',function (){
+             let id=  $(this).data('id');
+             $("#exampleModal").modal('show');
+            $("#delete-member").attr('action','/members/'+id)
+        })
+    </script>
+@endsection
 
 <style>
     .description{

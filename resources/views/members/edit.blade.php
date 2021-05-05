@@ -31,15 +31,17 @@
 
                     <div class="form-group">
                         <label for="image" class="form-label">Upload Image</label>
-                        <input name="image" class="form-control form-control-lg" id="image" type="file" placeholder="image" required>
+                        <input name="image" class="form-control form-control-lg" id="image" type="file" placeholder="image">
                     </div>
 
                     <div class="form-group">
                         <select name="committee_id" class="custom-select" placeholder="committee" id="committee">
-                            <option value="{{$member->committee->id}}" selected >{{$member->committee->name}}</option>
+                            <option  value="" ></option>
                             @foreach($committees as $committee)
-                                @if($committee->id != $member->committee->id)
-                                <option value="{{$committee->id}}">{{$committee->name}}</option>
+                                @if($committee->id == $member->committee->id)
+                                <option value="{{$committee->id}}" selected>{{$committee->name}}</option>
+                                @else
+                                    <option value="{{$committee->id}}">{{$committee->name}}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -47,10 +49,12 @@
                     <div class="form-group">
                           @if($member->type)
                         <select name="member_type_id" class="custom-select" placeholder="member type" id="">
-                            <option value="{{$member->type->id}}" selected >{{$member->type->name}}</option>
+                            <option  value="" ></option>
                             @foreach($types as $type)
-                                @if($type->id != $member->type->id)
-                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                @if($type->id == $member->type->id)
+                                <option value="{{$type->id}}" selected>{{$type->name}}</option>
+                                @else
+                                    <option value="{{$type->id}}">{{$type->name}}</option>
                                 @endif
                             @endforeach
                         </select>

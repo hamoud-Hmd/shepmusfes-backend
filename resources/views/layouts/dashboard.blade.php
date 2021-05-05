@@ -274,5 +274,9 @@
 
     </main>
 </div>
+<script src="{{asset('js/jquery.js')}}"></script>
+
+    @yield('script_js')
+
 </body>
 </html>
