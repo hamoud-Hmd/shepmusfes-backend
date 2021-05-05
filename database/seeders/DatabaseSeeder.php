@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\President;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             Member_TypeSeed::class,
+            MembersSeeder::class,
+            PresidentsSeeder::class,
+            CommitteesSeeder::class,
         ]);
     }
 }
